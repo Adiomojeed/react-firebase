@@ -2,9 +2,9 @@
 
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import compose from "recompose";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase/index";
-import compose from 'recompose';
 
 const SignUpPage = () => {
 	return (
@@ -40,10 +40,15 @@ class SignUpFormBase extends React.Component {
 		this.props.firebase
 			.doCreateUserWithEmailAndPassword(email, passwordOne)
 			.then((authUser) => {
-				this.setState({ ...INITIAL_STATE });
+				this.setState({ email: authUser.email, passwordOne: authUser.passwordOne });
+				this.props.history.push(ROUTES.HOME);
+				// eslint-disable-next-line no-console
+				console.log('success')
 			})
 			.catch((error) => {
 				this.setState({ error });
+				// eslint-disable-next-line no-console
+				console.error(error)
 			});
 
 		e.preventDefault();
@@ -106,7 +111,7 @@ const SignUpLink = () => {
 	);
 };
 
-const SignUpForm = compose(withRouter, withFirebase)(SignUpFormBase)
+const SignUpForm = withRouter(withFirebase(SignUpFormBase))
 
 export default SignUpPage;
 
