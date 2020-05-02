@@ -11,31 +11,9 @@ import HomePage from "../Home/index";
 import AccountPage from "../Account/index";
 import AdminPage from "../Admin/index";
 import * as ROUTES from "../../constants/routes";
-import { withFirebase } from "../Firebase";
 import { withAuthentication } from "../Session/index";
 
 class App extends React.Component {
-	//constructor(props) {
-	//	super(props);
-	//	this.state = {
-	//		authUser: null,
-	//	};
-	//}
-	//
-	//componentDidMount() {
-	//	this.listener = this.props.firebase.auth.onAuthStateChanged(
-	//		(authUser) => {
-	//			authUser
-	//				? this.setState({ authUser })
-	//				: this.setState({ authUser: null });
-	//		}
-	//	);
-	//}
-	//
-	//componentWillUnmount() {
-	//	this.listener();
-	//}
-
 	render() {
 		return (
 			<Router>

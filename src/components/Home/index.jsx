@@ -1,9 +1,20 @@
-import React from 'react';
+/** @format */
+
+import React from "react";
+import { withAuthorization, AuthUserContext } from "../Session/index";
 
 const HomePage = () => {
-    return (
-        <h1>Home</h1>
-    )
-}
+	return (
+		<AuthUserContext.Consumer>
+			{(authUser) => (
+				<div>
+					<h1>Welcome {authUser.email}</h1>
+				</div>
+			)}
+		</AuthUserContext.Consumer>
+	);
+};
 
-export default HomePage
+const condition = (authUser) => authUser != null;
+
+export default withAuthorization(condition)(HomePage);
