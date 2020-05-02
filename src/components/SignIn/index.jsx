@@ -5,12 +5,15 @@ import { withRouter } from "react-router-dom";
 import { SignUpLink } from "../SignUp/index";
 import { withFirebase } from "../Firebase/index";
 import * as ROUTES from "../../constants/routes";
+import { PassWordForgetLink } from "../PasswordForget";
+
 
 const SignInPage = () => {
 	return (
 		<div>
 			<h1>SignIn</h1>
 			<SignInForm />
+			<PassWordForgetLink />
 			<SignUpLink />
 		</div>
 	);

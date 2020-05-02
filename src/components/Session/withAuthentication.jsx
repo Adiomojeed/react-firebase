@@ -1,12 +1,12 @@
 /** @format */
 
 import React from "react";
-import { AuthUserContext } from "./context";
-import { withFireBase } from '../Firebase/index'
+import AuthUserContext from "./context";
+import { withFirebase } from '../Firebase/index'
 
 const withAuthentication = (Component) => {
 	// eslint-disable-next-line no-shadow
-	class withAuthentication extends React.Component {
+	class withAuthentications extends React.Component {
 		constructor(props) {
 			super(props);
 			this.state = {
@@ -31,13 +31,13 @@ const withAuthentication = (Component) => {
 		render() {
 			return (
 				<AuthUserContext.Provider value={this.state.authUser}>
-					<Component {...props} />
+					<Component {...this.props} />
 				</AuthUserContext.Provider>
 			);
 		}
 	}
 
-	return withFireBase(withAuthentication);
+	return withFirebase(withAuthentications);
 };
 
 export default withAuthentication;
