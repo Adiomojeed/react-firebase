@@ -2,6 +2,7 @@
 
 import app from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 const config = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -12,19 +13,12 @@ const config = {
 	messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
+app.initializeApp(config);
+
+export const auth = app.auth();
 class Firebase {
-	constructor() {
-		app.initializeApp(config);
-		this.auth = app.auth();
-		this.doCreateUserWithEmailAndPassword = this.doCreateUserWithEmailAndPassword.bind(
-			this
-		);
-		this.doSignInWithEmailAndPassword = this.doSignInWithEmailAndPassword.bind(
-			this
-		);
-		this.doSignOut = this.doSignOut.bind(this);
-		this.doResetPassword = this.doResetPassword.bind(this);
-		this.doChangePassword = this.doResetPassword.bind(this);
+	constructor(auths) {
+		this.auth = auths;
 	}
 
 	// Sign Up function

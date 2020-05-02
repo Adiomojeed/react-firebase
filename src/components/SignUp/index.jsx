@@ -2,14 +2,13 @@
 
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import compose from "recompose";
 import * as ROUTES from "../../constants/routes";
 import { withFirebase } from "../Firebase/index";
 
 const SignUpPage = () => {
 	return (
 		<div>
-			<h1>Sign Up Form</h1>
+			<h1>Sign Up</h1>
 			<SignUpForm />
 		</div>
 	);
@@ -31,27 +30,20 @@ class SignUpFormBase extends React.Component {
 		this.onHandleSubmit = this.onHandleSubmit.bind(this);
 	}
 
-	onHandleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
-	}
-
 	onHandleSubmit(e) {
 		const { username, email, passwordOne } = this.state;
-		this.props.firebase
-			.doCreateUserWithEmailAndPassword(email, passwordOne)
+		this.props.firebase.auth
+			.createUserWithEmailAndPassword(email, passwordOne)
 			.then((authUser) => {
-				this.setState({ email: authUser.email, passwordOne: authUser.passwordOne });
+				this.setState({ ...INITIAL_STATE });
 				this.props.history.push(ROUTES.HOME);
-				// eslint-disable-next-line no-console
-				console.log('success')
 			})
-			.catch((error) => {
-				this.setState({ error });
-				// eslint-disable-next-line no-console
-				console.error(error)
-			});
-
+			.catch((error) => this.setState({ error }));
 		e.preventDefault();
+	}
+
+	onHandleChange(e) {
+		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	render() {
@@ -111,7 +103,7 @@ const SignUpLink = () => {
 	);
 };
 
-const SignUpForm = withRouter(withFirebase(SignUpFormBase))
+const SignUpForm = withRouter(withFirebase(SignUpFormBase));
 
 export default SignUpPage;
 

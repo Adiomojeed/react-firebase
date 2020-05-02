@@ -1,9 +1,12 @@
-import React from 'react';
+/** @format */
 
-const AccountPage = () => {
-    return (
-        <h1>Account</h1>
-    )
-}
+import React from "react";
 
-export default AccountPage
+const AccountPage = () => (
+	<div>
+		<h1>Account Page</h1>
+
+	</div>
+);
+
+export default AccountPage;

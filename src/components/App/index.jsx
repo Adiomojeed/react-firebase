@@ -11,10 +11,8 @@ import HomePage from "../Home/index";
 import AccountPage from "../Account/index";
 import AdminPage from "../Admin/index";
 import * as ROUTES from "../../constants/routes";
-import { withAuthentication } from "../Session/index";
 
 const App = () => {
-	// eslint-disable-next-line class-methods-use-this
 
 	return (
 		<Router>
@@ -36,4 +34,4 @@ const App = () => {
 	);
 };
 
-export default withAuthentication(App);
+export default App;
