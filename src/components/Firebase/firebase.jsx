@@ -3,6 +3,7 @@
 import app from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import 'firebase/database'
 
 const config = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -16,9 +17,11 @@ const config = {
 app.initializeApp(config);
 
 export const auth = app.auth();
+export const db = app.database()
 class Firebase {
-	constructor(auths) {
+	constructor(auths, dbs) {
 		this.auth = auths;
+		this.db = dbs
 	}
 
 	// Sign Up function
@@ -44,6 +47,16 @@ class Firebase {
 	// Change Password function
 	doChangePassword(password) {
 		this.auth.currentUser.updatePassword(password);
+	}
+
+	// To retrieve a particular from the database using the user's uid
+	user(uid) {
+		this.db.ref(`users/${uid}`)
+	}
+
+	// To retrieve all users
+	users() {
+		this.db.ref('users')
 	}
 }
 

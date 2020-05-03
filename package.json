@@ -36,6 +36,9 @@
 		"prettier": "^2.0.5"
 	},
 	"dependencies": {
+		"en": "^1.0.1",
+		"entr": "0.0.0",
+		"entropy-string": "^4.2.0",
 		"firebase": "^7.14.2",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
