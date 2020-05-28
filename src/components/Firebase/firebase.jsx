@@ -1,9 +1,8 @@
 /** @format */
 
-import app from "firebase/app";
+import app from "firebase";
 import "firebase/auth";
-import "firebase/firestore";
-import 'firebase/database'
+import "firebase/database";
 
 const config = {
 	apiKey: process.env.REACT_APP_API_KEY,
@@ -14,49 +13,35 @@ const config = {
 	messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
 };
 
-app.initializeApp(config);
-
-export const auth = app.auth();
-export const db = app.database()
 class Firebase {
-	constructor(auths, dbs) {
-		this.auth = auths;
-		this.db = dbs
+	constructor() {
+		app.initializeApp(config);
+		this.auth = app.auth();
+		this.db = app.database();
 	}
 
-	// Sign Up function
 	doCreateUserWithEmailAndPassword(email, password) {
-		this.auth.createUserWithEmailAndPassword(email, password);
+		return this.auth.createUserWithEmailAndPassword(email, password);
 	}
 
-	// Sign In function
 	doSignInWithEmailAndPassword(email, password) {
-		this.auth.signInWithEmailAndPassword(email, password);
+		return this.auth.signInWithEmailAndPassword(email, password);
 	}
 
-	// Sign Out function
-	doSignOut() {
-		this.auth.signOut();
-	}
-
-	// Reset Password function
 	doResetPassword(email) {
-		this.auth.sendPasswordResetEmail(email);
+		return this.auth.sendPasswordResetEmail(email);
 	}
 
-	// Change Password function
 	doChangePassword(password) {
-		this.auth.currentUser.updatePassword(password);
+		return this.auth.currentUser.updatePassword(password);
 	}
 
-	// To retrieve a particular from the database using the user's uid
-	user(uid) {
-		this.db.ref(`users/${uid}`)
+	doSignOut() {
+		return this.auth.signOut();
 	}
 
-	// To retrieve all users
-	users() {
-		this.db.ref('users')
+	user(link) {
+		return this.db.ref(link);
 	}
 }
 

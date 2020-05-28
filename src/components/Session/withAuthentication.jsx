@@ -1,27 +1,25 @@
 /** @format */
 
 import React from "react";
+import { withFirebase } from "../Firebase";
 import AuthUserContext from "./context";
-import { withFirebase } from '../Firebase/index'
 
 const withAuthentication = (Component) => {
-	// eslint-disable-next-line no-shadow
 	class withAuthentications extends React.Component {
 		constructor(props) {
 			super(props);
 			this.state = {
-				authUser: null,
+				authUSer: null,
 			};
 		}
 
 		componentDidMount() {
-			this.listener = this.props.firebase.auth.onAuthStateChanged(
-				(authUser) => {
-					authUser
-						? this.setState({ authUser })
-						: this.setState({ authUser: null });
-				}
-			);
+			const { firebase } = this.props;
+			this.listener = firebase.auth.onAuthStateChanged((authUSer) => {
+				authUSer
+					? this.setState({ authUSer })
+					: this.setState({ authUSer: null });
+			});
 		}
 
 		componentWillUnmount() {
@@ -30,13 +28,12 @@ const withAuthentication = (Component) => {
 
 		render() {
 			return (
-				<AuthUserContext.Provider value={this.state.authUser}>
+				<AuthUserContext.Provider value={this.state.authUSer}>
 					<Component {...this.props} />
 				</AuthUserContext.Provider>
 			);
 		}
 	}
-
 	return withFirebase(withAuthentications);
 };
 

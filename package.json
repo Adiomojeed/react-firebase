@@ -36,6 +36,7 @@
 		"prettier": "^2.0.5"
 	},
 	"dependencies": {
+		"@reach/router": "^1.3.3",
 		"en": "^1.0.1",
 		"entr": "0.0.0",
 		"entropy-string": "^4.2.0",
