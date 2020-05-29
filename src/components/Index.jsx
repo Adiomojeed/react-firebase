@@ -6,6 +6,7 @@ import SignUp from "./SignUp";
 import Home from "./Dashboard.jsx/Home";
 import SignIn from "./SignIn";
 import { withAuthentication } from "./Session";
+import CreateProfile from "./Dashboard.jsx/CreateProfile";
 
 const Index = () => {
 	return (
@@ -14,6 +15,7 @@ const Index = () => {
 				<SignUp path="/register" />
 				<Home path="/home" />
                 <SignIn path='/' />
+				<CreateProfile path='/create' />
 			</Router>
 		</div>
 	);

@@ -11,23 +11,50 @@ class SignIn extends Component {
 		this.state = {
 			email: "",
 			password: "",
+			users: [],
 			error: null,
+			mounts: null,
 		};
 
 		this.onHandleChange = this.onHandleChange.bind(this);
 		this.onHandleSubmit = this.onHandleSubmit.bind(this);
-    }
+	}
+
+	componentDidMount() {
+		this.ref = this.props.firebase.user("users").on("value", (snapshot) => {
+			const usersObject = snapshot.val();
+			let users;
+			if (usersObject === null) {
+				users = [];
+			} else {
+				users = Object.keys(usersObject).map(
+					(user) => usersObject[user].email
+				);
+			}
+			this.setState({ users });
+		});
+	}
+
+	componentWillUnmount() {
+		this.ref().off();
+	}
 
 	onHandleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	onHandleSubmit(e) {
-		const { email, password } = this.state;
+		const { email, password, users } = this.state;
 		const { firebase } = this.props;
 		firebase
 			.doSignInWithEmailAndPassword(email, password)
-			.then(() => navigate("/home"))
+			.then(() => {
+				if (users.includes(email)) {
+					navigate("/home");
+				} else {
+					navigate("/create");
+				}
+			})
 			.catch((error) => this.setState({ error }));
 		e.preventDefault();
 	}

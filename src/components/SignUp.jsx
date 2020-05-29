@@ -32,16 +32,7 @@ class SignUp extends Component {
 					.sendEmailVerification()
 					.catch((error) => console.error(error));
 			})
-			.then(() => {
-				firebase.auth.onAuthStateChanged((authUser) => {
-					authUser.emailVerified
-						? firebase.db
-								.user(`users/${authUser.uid}`)
-								.set({ email })
-						: null;
-				});
-			})
-			.then(() => navigate("/home"))
+			.then(() => navigate("/create"))
 			.catch((error) => this.setState({ error }));
 		e.preventDefault();
 	}
